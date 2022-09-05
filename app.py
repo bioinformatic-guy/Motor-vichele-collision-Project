@@ -1,3 +1,5 @@
+# importing important Libraries 
+
 import streamlit as st
 # st.title('Hello World!!')
 # st.markdown('# My first Streamlit Dashboard')
@@ -6,22 +8,17 @@ import numpy as np
 import pydeck as pdk
 import plotly.express as px
 
-#data_url=(
-#"https://github.com/chairielazizi/streamlit-collision/blob/master/Motor_Vehicle_Collisions_-_Crashes.csv?raw=true"
-#)
+# Uploading dataset
 df=('D:\Self_project\Car_Collision_project\Motor_Vehicle_Collisions_-_Crashes_updated.csv')
 
-#df.rename(columns={'CRASH DATE':'CRASH_DATE', 'CRASH TIME':'CRASH_TIME','NUMBER OF PERSONS INJURED':'NUMBER_OF_PERSONS_INJURED' }, inplace = True)
-
 st.title("Motor Vehicle Collisions in NYC")
-st.markdown('#### This application is a Streamlit Dashboard that can be used '
-'to analyse 🏎️ motor vehicle collision in NYC 🗽 💥')
+st.markdown('#### This application is a Streamlit Dashboard that can be used ''to analyse 🏎️ motor vehicle collision in NYC 🗽 💥')
 
 @st.cache(persist=True)
 def load_data(nrows):
     data=pd.read_csv(df,nrows=nrows, parse_dates=[['CRASH DATE','CRASH TIME']])
     data.dropna(subset=['LATITUDE','LONGITUDE'],inplace=True)
-    data.columns = data.columns.str.replace(' ','_')
+    data.columns = data.columns.str.replace(' ','_')                     #Rename of columns
     lowercase=lambda x: str(x).lower()
     data.rename(lowercase,axis='columns',inplace=True)
     data.rename(columns={'crash_date_crash_time':'date/time'},inplace=True)
